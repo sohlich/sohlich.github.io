@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Radek Sohlich</title>
-    <link>https://sohlich.github.io/post/</link>
-    <description>Recent content in Posts on Radek Sohlich</description>
+    <title>Post-rsses on Radek Sohlich</title>
+    <link>https://sohlich.github.io/post/index.xml</link>
+    <description>Recent content in Post-rsses on Radek Sohlich</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>Copyright (c) 2016, Radomir Sohlich; all rights reserved.</copyright>
     <lastBuildDate>Sun, 28 Aug 2016 08:48:41 +0200</lastBuildDate>
     <atom:link href="https://sohlich.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -53,7 +54,7 @@
 
 &lt;p&gt;&lt;img class=&#34;img-responsive center-block&#34; src=&#34;https://sohlich.github.io/img/blog/natsproxy/natsproxy_arch.png&#34;&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;proxy-basics:74155849d60bdf4df45d491945bf6268&#34;&gt;Proxy basics&lt;/h2&gt;
+&lt;h2 id=&#34;proxy-basics&#34;&gt;Proxy basics&lt;/h2&gt;
 
 &lt;p&gt;As the name of the project suggests the function of the library is very similar to basic HTTP proxy. The proxy receives the HTTP request and translates it into a struct, which contains all the information from original request (URL, header, body).&lt;/p&gt;
 
@@ -87,7 +88,7 @@ The subject, to which the serialized struct is sent, is constructed from the HTT
 
 &lt;p&gt;For better picture of how it works in reality. There is a code of simple client and proxy.&lt;/p&gt;
 
-&lt;h2 id=&#34;proxy:74155849d60bdf4df45d491945bf6268&#34;&gt;Proxy&lt;/h2&gt;
+&lt;h2 id=&#34;proxy&#34;&gt;Proxy&lt;/h2&gt;
 
 &lt;p&gt;The proxy side implements the &lt;code&gt;http.Handler&lt;/code&gt; interface, so it can be used with built-in &lt;code&gt;http&lt;/code&gt; package as you can see in the code below. The handler does nothing special. It parses the request and translates it to custom representation which is then serialized to JSON by built in &lt;code&gt;json&lt;/code&gt; package encoder.&lt;/p&gt;
 
@@ -117,7 +118,7 @@ Because the implementation does not allow writing data to the &lt;code&gt;http.R
 	})
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;client:74155849d60bdf4df45d491945bf6268&#34;&gt;Client&lt;/h2&gt;
+&lt;h2 id=&#34;client&#34;&gt;Client&lt;/h2&gt;
 
 &lt;p&gt;The client code uses the nats connection as the constructor argument, so all available options for configuring the connection are accessible. The client itself uses the asynchronous subscription to handle incoming messages, so it&amp;rsquo;s behavior similar to &lt;code&gt;http.HandlerFunc&lt;/code&gt;. The client API and internals are heavily inspired by &lt;a href=&#34;https://gin-gonic.github.io/gin/&#34;&gt;Gin Gonic&lt;/a&gt; project. The sample code shows how to use the client API.&lt;/p&gt;
 
@@ -186,7 +187,7 @@ natsClient.Subscribe(&amp;quot;HEAD&amp;quot;,&amp;quot;/user/info&amp;quot;, fu
 })
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;summary:74155849d60bdf4df45d491945bf6268&#34;&gt;Summary&lt;/h2&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
 
 &lt;p&gt;The first version (v1) of the nats-proxy framework implements only HTTP Request/Response proxying.
 Because it started as some kind of proof of concept, the solution is not really optimized, all the work is done on the proxy side.

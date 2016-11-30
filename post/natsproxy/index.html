@@ -14,7 +14,7 @@
 
   
 
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.17-DEV" />
 
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
 
@@ -183,7 +183,7 @@
 
 <p><img class="img-responsive center-block" src="/img/blog/natsproxy/natsproxy_arch.png"></p>
 
-<h2 id="proxy-basics:74155849d60bdf4df45d491945bf6268">Proxy basics</h2>
+<h2 id="proxy-basics">Proxy basics</h2>
 
 <p>As the name of the project suggests the function of the library is very similar to basic HTTP proxy. The proxy receives the HTTP request and translates it into a struct, which contains all the information from original request (URL, header, body).</p>
 
@@ -217,7 +217,7 @@ The subject, to which the serialized struct is sent, is constructed from the HTT
 
 <p>For better picture of how it works in reality. There is a code of simple client and proxy.</p>
 
-<h2 id="proxy:74155849d60bdf4df45d491945bf6268">Proxy</h2>
+<h2 id="proxy">Proxy</h2>
 
 <p>The proxy side implements the <code>http.Handler</code> interface, so it can be used with built-in <code>http</code> package as you can see in the code below. The handler does nothing special. It parses the request and translates it to custom representation which is then serialized to JSON by built in <code>json</code> package encoder.</p>
 
@@ -247,7 +247,7 @@ Because the implementation does not allow writing data to the <code>http.Respons
 	})
 </code></pre>
 
-<h2 id="client:74155849d60bdf4df45d491945bf6268">Client</h2>
+<h2 id="client">Client</h2>
 
 <p>The client code uses the nats connection as the constructor argument, so all available options for configuring the connection are accessible. The client itself uses the asynchronous subscription to handle incoming messages, so it&rsquo;s behavior similar to <code>http.HandlerFunc</code>. The client API and internals are heavily inspired by <a href="https://gin-gonic.github.io/gin/">Gin Gonic</a> project. The sample code shows how to use the client API.</p>
 
@@ -316,7 +316,7 @@ natsClient.Subscribe(&quot;HEAD&quot;,&quot;/user/info&quot;, func(c *natsproxy.
 })
 </code></pre>
 
-<h2 id="summary:74155849d60bdf4df45d491945bf6268">Summary</h2>
+<h2 id="summary">Summary</h2>
 
 <p>The first version (v1) of the nats-proxy framework implements only HTTP Request/Response proxying.
 Because it started as some kind of proof of concept, the solution is not really optimized, all the work is done on the proxy side.
@@ -383,7 +383,7 @@ The v2 should bring some performance improvements because the serialization is d
                     <div class="image same-height-always">
                         <a href="https://sohlich.github.io/post/natsproxy/">
                           
-                            <img src="https://sohlich.github.io/img/natsproxy.png" class="img-responsive" alt="">
+                            <img src="https://sohlich.github.io//img/blog/natsproxy/natsproxy_rest.png" class="img-responsive" alt="">
                           
                         </a>
                     </div>
