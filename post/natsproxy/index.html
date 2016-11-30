@@ -177,11 +177,11 @@
 
 <p>So the REST to NATS project uses this similarity between NATS and HTTP communication and tries to implement the bridge between HTTP(Websockets) and NATS in such way. The library was originally created for the purpose of migrating REST based architecture like this</p>
 
-<p><img class="img-responsive center-block" src="/img/blog/natsproxy/natsproxy_rest.png"></p>
+<p><img class="img-responsive center-block" src="https://sohlich.github.io/img/blog/natsproxy/natsproxy_rest.png"></p>
 
 <p>into NATS messaging platform based one. But as it evolved, it started to grow into some kind of framework, that can be used for the creation of service API and seamless protocol bridging. So one of the many examples of how the system using a nats-proxy framework could look like is on the architecture below.</p>
 
-<p><img class="img-responsive center-block" src="/img/blog/natsproxy/natsproxy_arch.png"></p>
+<p><img class="img-responsive center-block" src="https://sohlich.github.io/img/blog/natsproxy/natsproxy_arch.png"></p>
 
 <h2 id="proxy-basics">Proxy basics</h2>
 
@@ -200,7 +200,7 @@
 <p>This struct is serialized and sent as a message through NATS via request (see <a href="http://nats.io/documentation/concepts/nats-req-rep/">http://nats.io/documentation/concepts/nats-req-rep/</a>) to ensure synchronous processing.
 The subject, to which the serialized struct is sent, is constructed from the HTTP request URL and METHOD by a very simple rule: slashes in the path are replaced by dots and the method is used as the prefix.</p>
 
-<p><img class="img-responsive center-block" src="/img/blog/natsproxy/natsproxy_request.png"></p>
+<p><img class="img-responsive center-block" src="https://sohlich.github.io/img/blog/natsproxy/natsproxy_request.png"></p>
 
 <blockquote>
 <p>Lets say we have GET request on URL <code>http://example.com/user/info</code> so the proxy will translate this URL to  subject <code>GET:user.info</code>.</p>
