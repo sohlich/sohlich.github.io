@@ -197,7 +197,7 @@ However for the purpose of bridging REST(HTTP) requests to NATS messaging platfo
 &lt;p&gt;Currently, the next version (v2) is under development.
 The v2 should bring some performance improvements because the serialization is done via protocol buffers. Also, a lot of work originally done on the proxy side was moved to client(service) side.The next significant feature is the WebSocket support.&lt;/p&gt;
 
-&lt;p&gt;If you are interested or have some ideas, see &lt;a href=&#34;https://github.com/sohlich/nats-proxy&#34;&gt;REST to NATS proxy&lt;/a&gt; pr&lt;/p&gt;
+&lt;p&gt;If you are interested or have some ideas, see &lt;a href=&#34;https://github.com/sohlich/nats-proxy&#34;&gt;REST to NATS proxy&lt;/a&gt; project.&lt;/p&gt;
 </description>
     </item>
     
