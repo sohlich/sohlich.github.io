@@ -4,7 +4,7 @@
     <head>
         
             
-                <title>Radek Sohlich</title>
+                <title>Streaming JSON with Jackson</title>
             
         
 
@@ -15,6 +15,8 @@
 
 
         
+            <meta name="author" content="Radomir Sohlich">
+        
         
             
                 <meta name="description" content="My personal blog, projects and ideas.">
@@ -22,10 +24,20 @@
         
 
         
-        <meta property="og:title" content="Radek Sohlich" />
-<meta property="og:description" content="My personal blog, projects and ideas." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://sohlich.github.io/" />
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Streaming JSON with Jackson"/>
+<meta name="twitter:description" content="Sometimes there is a situation, when it is more efficient to parse the JSON in stream way. Especially if you are dealing with huge input or slow connection. In that case the JSON need to be read as it comes from input part by part. The side effect of such approach is that you are able to read corrupted JSON arrays in some kind of comfortable way. Well known Jackson library (https://github.com/FasterXML/jackson-core) provides so called stream API to handle it."/>
+<meta name="twitter:site" content="@radeksohlich"/>
+
+
+        <meta property="og:title" content="Streaming JSON with Jackson" />
+<meta property="og:description" content="Sometimes there is a situation, when it is more efficient to parse the JSON in stream way. Especially if you are dealing with huge input or slow connection. In that case the JSON need to be read as it comes from input part by part. The side effect of such approach is that you are able to read corrupted JSON arrays in some kind of comfortable way. Well known Jackson library (https://github.com/FasterXML/jackson-core) provides so called stream API to handle it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sohlich.github.io/post/jackson/" />
 
 
 <meta property="og:updated_time" content="2017-02-08T20:27:44&#43;01:00"/>
@@ -38,10 +50,18 @@
 
 
 
-        
-<meta itemprop="name" content="Radek Sohlich">
-<meta itemprop="description" content="My personal blog, projects and ideas.">
 
+        
+<meta itemprop="name" content="Streaming JSON with Jackson">
+<meta itemprop="description" content="Sometimes there is a situation, when it is more efficient to parse the JSON in stream way. Especially if you are dealing with huge input or slow connection. In that case the JSON need to be read as it comes from input part by part. The side effect of such approach is that you are able to read corrupted JSON arrays in some kind of comfortable way. Well known Jackson library (https://github.com/FasterXML/jackson-core) provides so called stream API to handle it.">
+
+
+<meta itemprop="dateModified" content="2017-02-08T20:27:44&#43;01:00" />
+<meta itemprop="wordCount" content="274">
+
+
+
+<meta itemprop="keywords" content="golang,java," />
 
         
 
@@ -78,7 +98,7 @@
     
 <header id="header">
     
-        <h1><a href="https://sohlich.github.io/">Radomír Sohlich</i></a></h1>
+        <h2><a href="https://sohlich.github.io/">Radomír Sohlich</i></a></h2>
     
 
     <nav class="links">
@@ -169,69 +189,7 @@
         
 </section>
 
-    
-    <div id="main">
-        
-            <article class="post">
-    <header>
-    <div class="title">
-        
-            <h2><a href="https://sohlich.github.io/post/jackson/">Streaming JSON with Jackson</a></h2>
-        
-        
-    </div>
-    <div class="meta">
-        
-            
-        
-
-        <time class="published"
-            datetime='2017-02-08'>
-            February 8, 2017</time>
-        <span class="author">Radomir Sohlich</span>
-        
-        
-    </div>
-</header>
-
-    
-
-    <p>Sometimes there is a situation, when it is more efficient to parse the JSON in stream way. Especially if you are dealing with huge input or slow connection. In that case the JSON need to be read as it comes from input part by part. The side effect of such approach is that you are able to read corrupted JSON arrays in some kind of comfortable way. Well known Jackson library (<a href="https://github.com/FasterXML/jackson-core">https://github.com/FasterXML/jackson-core</a>) provides so called stream API to handle it.</p>
-
-    <footer>
-        <ul class="actions">
-            <li><a href="https://sohlich.github.io/post/jackson/" class="button big">Continue Reading</a></li>
-        </ul>
-        <ul class="stats">
-    
-        
-
-        
-        
-            <li>
-                
-                
-                    
-
-                    
-                        Category
-                    
-                
-            </li>
-        
-    
-
-    
-    
-        <li><a href='https://sohlich.github.io/categories/java'>java</a></li>
-    
-</ul>
-
-    </footer>
-</article>
-
-
-            <section id="share-menu">
+    <section id="share-menu">
     <section id="social-share-nav">
         <ul class="links">
             <header>
@@ -285,12 +243,16 @@
     </section>
 </section>
 
+    
+    <div id="main">
         
-            <article class="post">
+        
+        <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="https://sohlich.github.io/post/natsproxy/">Nats Proxy Framework</a></h2>
+            <h1><a href="https://sohlich.github.io/post/jackson/">Streaming JSON with Jackson</a></h1>
+            
         
         
     </div>
@@ -300,22 +262,141 @@
         
 
         <time class="published"
-            datetime='2016-08-28'>
-            August 28, 2016</time>
-        <span class="author"></span>
+            datetime='2017-02-08'>
+            February 8, 2017</time>
+        <span class="author">Radomir Sohlich</span>
         
         
     </div>
 </header>
 
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f&text=Streaming%20JSON%20with%20Jackson&via=radeksohlich" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f&title=Streaming%20JSON%20with%20Jackson" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f&title=Streaming%20JSON%20with%20Jackson" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f&title=Streaming%20JSON%20with%20Jackson" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Radomir%20Sohlich&body=https%3a%2f%2fsohlich.github.io%2fpost%2fjackson%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
     
 
-    <p>The REST to NATS proxy project sohlich/nats-proxy is the micro framework that provides a bridge between HTTP and NATS. To introduce the problem, we first compare the HTTP and NATS communication models. The table below represents the matching of HTTP and NATS concepts and what do they provide. HTTP NATS Request/Response Request/Reply synchronous communication Websocket Publish/Subscribe real-time asynchronous communication As you can see, the NATS provides both synchronous and asynchronous communication between clients.</p>
+    <div id="content">
+        <p>Sometimes there is a situation, when it is more
+efficient to parse the JSON in stream way.
+Especially if you are dealing with huge input
+or slow connection. In that case the JSON need to be read
+as it comes from input part by part.
+The side effect of such approach is that you are able to
+read corrupted JSON arrays in some kind of comfortable way.</p>
+
+<p>Well known Jackson library (<a href="https://github.com/FasterXML/jackson-core">https://github.com/FasterXML/jackson-core</a>)
+provides so called stream API to handle it.
+The parsing of stream is possible via
+JsonParser object, which uses token approach.</p>
+
+<pre><code>InputStream is = new FileInputStream(&quot;data.json&quot;);
+JsonFactory factory = new JsonFactory();
+JsonParser parser = factory.createJsonParser(is);
+</code></pre>
+
+<p>To simplify the approach, the combination of ObjectMapper
+with sequetial reading of JSON data could be used.The code of the
+complete solution could be like:</p>
+
+<pre><code>public void tryParse(InputStream is) throws IOException {
+		JsonFactory factory = new JsonFactory();
+		JsonParser parser = factory.createJsonParser(is);
+		ObjectMapper mapper = new ObjectMapper()
+				.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+
+		JsonToken token = parser.nextToken();
+		
+        	// Try find at least one object or array.
+		while (!JsonToken.START_ARRAY.equals(token) &amp;&amp; token != null &amp;&amp; !JsonToken.START_OBJECT.equals(token)) {
+			parser.nextToken();
+		}
+
+		// No content found
+		if (token == null) {
+			return;
+		}
+
+		boolean scanMore = false;
+
+		while (true) {
+			// If the first token is the start of obejct -&gt;
+			// the response contains only one object (no array)
+			// do not try to get the first object from array.
+			try {
+				if (!JsonToken.START_OBJECT.equals(token) || scanMore) {
+					token = parser.nextToken();
+				}
+				if (!JsonToken.START_OBJECT.equals(token)) {
+					break;
+				}
+				if (token == null) {
+					break;
+				}
+
+				Object node = mapper.readValue(parser, mappedClass);
+				
+				//YOUR CODE TO HANDLE OBJECT
+				//...
+
+
+				scanMore = true;
+			} catch (JsonParseException e) {
+				handleParseException(e);
+				break;
+			}
+		}
+	}
+</code></pre>
+
+    </div>
 
     <footer>
-        <ul class="actions">
-            <li><a href="https://sohlich.github.io/post/natsproxy/" class="button big">Continue Reading</a></li>
-        </ul>
         <ul class="stats">
     
         
@@ -337,69 +418,24 @@
 
     
     
-        <li><a href='https://sohlich.github.io/categories/golang'>golang</a></li>
+        <li><a href='https://sohlich.github.io/categories/java'>java</a></li>
     
 </ul>
 
     </footer>
 </article>
+<ul class="actions pagination">
+    
+        <li><a href="https://sohlich.github.io/post/natsproxy/"
+                class="button big previous">Nats Proxy Framework</a></li>
+    
+
+    
+</ul>
 
 
-            <section id="share-menu">
-    <section id="social-share-nav">
-        <ul class="links">
-            <header>
-                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
-            </header>
-            
 
 
-<li><a href="//twitter.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f&text=Nats%20Proxy%20Framework&via=radeksohlich" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-
-<li><a href="//plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-
-<li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-
-<li><a href="//reddit.com/submit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f&title=Nats%20Proxy%20Framework" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-
-<li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f&title=Nats%20Proxy%20Framework" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-
-<li><a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f&title=Nats%20Proxy%20Framework" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-
-<li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fsohlich.github.io%2fpost%2fnatsproxy%2f" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-
-        </ul>
-    </section>
-</section>
-
-        
     </div>
     
 <section id="sidebar">
@@ -419,9 +455,6 @@
                 </header>
             
             <ul class="icons">
-                
-                    <li><a href="https://sohlich.github.io/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
