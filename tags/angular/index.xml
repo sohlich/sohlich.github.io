@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Radomir Sohlich</title>
+    <link>https://sohlich.github.io/tags/angular/index.xml</link>
+    <description>Recent content on Radomir Sohlich</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>© 2017 Radomir Sohlich</copyright>
+    <atom:link href="https://sohlich.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Angular on Electron, part 1</title>
+      <link>https://sohlich.github.io/post/angular_electron/</link>
+      <pubDate>Sat, 29 Jul 2017 08:48:41 +0200</pubDate>
+      
+      <guid>https://sohlich.github.io/post/angular_electron/</guid>
+      <description>
+
+&lt;p&gt;Today it is possible to have almost all the applications as a service online. Literally you don&amp;rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I&amp;rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option. For Java people, there are two useful options: swing and java fx.
+But for me as web developer, though java based, it means to learn a new library or whole framework, all its features and pitfalls&amp;hellip; But what If anybody tells you that you can use your good &amp;ldquo;old&amp;rdquo; javascript and HTML? Me, I’m totally IN.&lt;/p&gt;
+
+&lt;p&gt;So here comes the Electron platform (&lt;a href=&#34;https://electron.atom.io/&#34;&gt;https://electron.atom.io/&lt;/a&gt;) based on Chromium browser. It provides presentation layer and runtime for your application.
+The Electron accompanied by Angular framework is a very solid foundation for desktop application development in most of use cases. By the way lot of well known applications are based on electron: VS Code, Slack, WhatsApp&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll try to show you how to start your own project, or &amp;ldquo;Electronify&amp;rdquo; the existing one.&lt;/p&gt;
+
+&lt;h1 id=&#34;bootstrap-your-project&#34;&gt;Bootstrap your project&lt;/h1&gt;
+
+&lt;p&gt;Using an Angular CLI generate a new application and test the first run. After following command you should be able to see the result in the browser on URL &lt;a href=&#34;http://localhost:4200&#34;&gt;http://localhost:4200&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; ng new electron_app
+&amp;gt; ng serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add main file for the electron called main.js&lt;/p&gt;
+
+&lt;p&gt;${PROJECT_FOLDER}/main.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    const { app, BrowserWindow } = require(&#39;electron&#39;);
+    
+    // Executes when the application 
+    // is initialized.
+    app.on(&#39;ready&#39;, function() {
+        console.log(&#39;Starting application!&#39;);
+        // Create browser window 
+        // with given parameters
+        mainWindow = new BrowserWindow({ width: 1280, height: 960 });
+        mainWindow.loadURL(&amp;quot;http://localhost:4200&amp;quot;);
+    
+        // It is useful to open dev tools
+        // for debug.
+        mainWindow.webContents.openDevTools();
+        mainWindow.on(&#39;closed&#39;, function() {
+            mainWindow = null;
+        });
+    });
+    
+    // Defines the behavior on close.
+    app.on(&#39;window-all-closed&#39;, function() {
+        app.quit();
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And update the package.json file by few additional properties:
+${PROJECT_FOLDER}/package.json:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    {
+        &amp;quot;name&amp;quot;: &amp;quot;electron_app&amp;quot;,
+        &amp;quot;version&amp;quot;: &amp;quot;0.0.0&amp;quot;,
+        &amp;quot;main&amp;quot;: &amp;quot;main.js&amp;quot;,
+        &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;,
+        &amp;quot;scripts&amp;quot;: {
+            &amp;quot;ng&amp;quot;: &amp;quot;ng&amp;quot;,
+            &amp;quot;start&amp;quot;: &amp;quot;ng serve&amp;quot;,
+            &amp;quot;build&amp;quot;: &amp;quot;ng build&amp;quot;,
+            &amp;quot;test&amp;quot;: &amp;quot;ng test&amp;quot;,
+            &amp;quot;lint&amp;quot;: &amp;quot;ng lint&amp;quot;,
+            &amp;quot;e2e&amp;quot;: &amp;quot;ng e2e&amp;quot;
+        },
+        &amp;quot;private&amp;quot;: true,
+        &amp;quot;dependencies&amp;quot;: {
+            &amp;quot;@angular/animations&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/common&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/compiler&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/core&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/forms&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/http&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/platform-browser&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/platform-browser-dynamic&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/router&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;core-js&amp;quot;: &amp;quot;^2.4.1&amp;quot;,
+            &amp;quot;rxjs&amp;quot;: &amp;quot;^5.4.1&amp;quot;,
+            &amp;quot;zone.js&amp;quot;: &amp;quot;^0.8.14&amp;quot;
+        },
+        &amp;quot;devDependencies&amp;quot;: {
+            &amp;quot;@angular/cli&amp;quot;: &amp;quot;1.2.4&amp;quot;,
+            &amp;quot;@angular/compiler-cli&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@angular/language-service&amp;quot;: &amp;quot;^4.0.0&amp;quot;,
+            &amp;quot;@types/jasmine&amp;quot;: &amp;quot;~2.5.53&amp;quot;,
+            &amp;quot;@types/jasminewd2&amp;quot;: &amp;quot;~2.0.2&amp;quot;,
+            &amp;quot;@types/node&amp;quot;: &amp;quot;~6.0.60&amp;quot;,
+            &amp;quot;codelyzer&amp;quot;: &amp;quot;~3.0.1&amp;quot;,
+            &amp;quot;jasmine-core&amp;quot;: &amp;quot;~2.6.2&amp;quot;,
+            &amp;quot;jasmine-spec-reporter&amp;quot;: &amp;quot;~4.1.0&amp;quot;,
+            &amp;quot;karma&amp;quot;: &amp;quot;~1.7.0&amp;quot;,
+            &amp;quot;karma-chrome-launcher&amp;quot;: &amp;quot;~2.1.1&amp;quot;,
+            &amp;quot;karma-cli&amp;quot;: &amp;quot;~1.0.1&amp;quot;,
+            &amp;quot;karma-coverage-istanbul-reporter&amp;quot;: &amp;quot;^1.2.1&amp;quot;,
+            &amp;quot;karma-jasmine&amp;quot;: &amp;quot;~1.1.0&amp;quot;,
+            &amp;quot;karma-jasmine-html-reporter&amp;quot;: &amp;quot;^0.2.2&amp;quot;,
+            &amp;quot;protractor&amp;quot;: &amp;quot;~5.1.2&amp;quot;,
+            &amp;quot;ts-node&amp;quot;: &amp;quot;~3.0.4&amp;quot;,
+            &amp;quot;tslint&amp;quot;: &amp;quot;~5.3.2&amp;quot;,
+            &amp;quot;typescript&amp;quot;: &amp;quot;~2.3.3&amp;quot;
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I recommend to install the electron platform globaly with command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;gt; npm install -g electron
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first simple manual run could be done by calling following commands (these must be run in separate terminal windows as the “ng serve” is blocking)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;gt; ng serve
+    &amp;gt; electron .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Command “ng serve” will start development server on &lt;a href=&#34;http://localhost:4200&#34;&gt;http://localhost:4200&lt;/a&gt;, you can notice the this url is used in main.js file. The &amp;ldquo;electron .&amp;rdquo; will start the electron app by executing the main.js file.&lt;/p&gt;
+
+&lt;p&gt;You can use &lt;a href=&#34;https://www.npmjs.com/package/concurrently&#34;&gt;concurrently&lt;/a&gt; tool to run these two commands concurrently. Also it can be incorporated to package.json file as an npm script.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm install -g concurrently
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;${PROJECT_FOLDER}/package.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+        ...
+        &amp;quot;electrondev&amp;quot;: &amp;quot;concurrently -k \&amp;quot;ng serve\&amp;quot; \&amp;quot;electron .\&amp;quot;&amp;quot;
+    },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;serving-static-files&#34;&gt;Serving static files&lt;/h1&gt;
+
+&lt;p&gt;Serving angular application via development server is not very comfortable and permanent solution. Better approach is serving a static files from the build output folder (let&amp;rsquo;s call it distribution folder). The main.js file need to be changed to open the index.html file located in distribution folder of your angular application.&lt;/p&gt;
+
+&lt;p&gt;${PROJECT_FOLDER}/main.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    const { app, BrowserWindow } = require(&#39;electron&#39;);
+    path = require(&#39;path&#39;);
+    url = require(&#39;url&#39;);
+    app.on(&#39;ready&#39;, function() {
+        console.log(&#39;Starting application!&#39;);
+        mainWindow = new BrowserWindow({ width: 1280, height: 960 });
+        
+        // Change loadUrl to load index.html
+        // using url and path package 
+        // to format the file url
+        mainWindow.loadURL(url.format({
+            //__dirname is the current working dir
+            pathname: path.join(__dirname, &#39;dist&#39;, &#39;index.html&#39;),
+            protocol: &#39;file:&#39;,
+            slashes: true
+        }));
+    
+        // Opens dev tools
+        mainWindow.webContents.openDevTools();
+        mainWindow.on(&#39;closed&#39;, function() {
+            mainWindow = null;
+        });
+    });
+    app.on(&#39;window-all-closed&#39;, function() {
+        app.quit();
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After you open electron you will receive “Failed to load resource” error.
+There is one step missing to get the change work.
+&lt;img src =&#34;https://d2mxuefqeaa7sj.cloudfront.net/s_F68920300BC018EB3E1E88614B689BAD376E939D730AA4BF30888F46A4DF2F8A_1501387336733_image.png&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;The one small change that need to be done is in your index.html file. We need to define the base for the file as absolute but from the actual working directory like “./”. This is done in &lt;base&gt; element in head tag of index.html . After the modification you can try “electron .” in your ${PROJECT_FOLDER}&lt;/p&gt;
+
+&lt;p&gt;${PROJECT_FOLDER}/index.html :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;lt;!doctype html&amp;gt;
+    &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+        &amp;lt;title&amp;gt;Electron&amp;lt;/title&amp;gt;
+        &amp;lt;!-- Change the href attribute 
+        to reference to cur. working dir --&amp;gt;
+        &amp;lt;base href=&amp;quot;./&amp;quot;&amp;gt;
+        &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt;
+        &amp;lt;link rel=&amp;quot;icon&amp;quot; type=&amp;quot;image/x-icon&amp;quot; href=&amp;quot;favicon.ico&amp;quot;&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;app-root&amp;gt;&amp;lt;/app-root&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s it. Desktop application with Angular. The same approach could be used with other JS frameworks or just pure static HTML. I was excited how easy it is.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

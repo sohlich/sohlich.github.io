@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Radek Sohlich</title>
+    <title>Radomir Sohlich</title>
     <link>https://sohlich.github.io/categories/java/index.xml</link>
-    <description>Recent content on Radek Sohlich</description>
+    <description>Recent content on Radomir Sohlich</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>Copyright (c) 2016, Radomir Sohlich; all rights reserved.</copyright>
+    <copyright>© 2017 Radomir Sohlich</copyright>
     <atom:link href="https://sohlich.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
