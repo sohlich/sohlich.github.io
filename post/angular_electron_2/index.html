@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="https://sohlich.github.io/images/logo.png">
 
 
-<link rel="canonical" href="https://sohlich.github.io/post/angular_electron/">
+<link rel="canonical" href="https://sohlich.github.io/post/angular_electron_2/">
 
 
     
@@ -19,23 +19,23 @@
     
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
-    <title>Angular on Electron, part 1 - Radomir Sohlich</title>
-     <meta name="description" content="Today it is possible to have almost all the applications as a service online. Literally you don&amp;rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I&amp;rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option.">
+    <title>Angular on Electron, part 2 - Radomir Sohlich</title>
+     <meta name="description" content="In the previous post the bootstrap of Angular project on Electron platform was described. In this one, the process of application packaging will be presented. One of the benefits of Electron is that it runs on all major platforms. Each platform has naturally its needs regarding to creating the distribution package. Fortunately, the packaging and all that stuff do not need to be done manually. There are few tools which will help you.">
 
-<meta property="og:title" content="Angular on Electron, part 1 - Radomir Sohlich">
+<meta property="og:title" content="Angular on Electron, part 2 - Radomir Sohlich">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://sohlich.github.io/post/angular_electron/">
-<meta property="og:image" content="https://sohlich.github.io//img/blog/electron/back.jpg">
+<meta property="og:url" content="https://sohlich.github.io/post/angular_electron_2/">
+<meta property="og:image" content="https://sohlich.github.io//img/blog/electron2/back.jpg">
 <meta property="og:site_name" content="Radomir Sohlich">
-<meta property="og:description" content="Today it is possible to have almost all the applications as a service online. Literally you don&amp;rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I&amp;rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option.">
+<meta property="og:description" content="In the previous post the bootstrap of Angular project on Electron platform was described. In this one, the process of application packaging will be presented. One of the benefits of Electron is that it runs on all major platforms. Each platform has naturally its needs regarding to creating the distribution package. Fortunately, the packaging and all that stuff do not need to be done manually. There are few tools which will help you.">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="Radomir Sohlich">
-<meta name="twitter:url" content="https://sohlich.github.io/post/angular_electron/">
-<meta name="twitter:title" content="Angular on Electron, part 1 - Radomir Sohlich">
-<meta name="twitter:description" content="Today it is possible to have almost all the applications as a service online. Literally you don&amp;rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I&amp;rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option.">
-<meta name="twitter:image" content="https://sohlich.github.io//img/blog/electron/back.jpg">
+<meta name="twitter:url" content="https://sohlich.github.io/post/angular_electron_2/">
+<meta name="twitter:title" content="Angular on Electron, part 2 - Radomir Sohlich">
+<meta name="twitter:description" content="In the previous post the bootstrap of Angular project on Electron platform was described. In this one, the process of application packaging will be presented. One of the benefits of Electron is that it runs on all major platforms. Each platform has naturally its needs regarding to creating the distribution package. Fortunately, the packaging and all that stuff do not need to be done manually. There are few tools which will help you.">
+<meta name="twitter:image" content="https://sohlich.github.io//img/blog/electron2/back.jpg">
 
  <script type="application/ld+json">
   {
@@ -45,15 +45,15 @@
       "@type": "WebPage",
       "@id":"https:\/\/sohlich.github.io\/"
     },
-    "headline": "Angular on Electron, part 1 - Radomir Sohlich",
+    "headline": "Angular on Electron, part 2 - Radomir Sohlich",
     "image": {
       "@type": "ImageObject",
-      "url": "https:\/\/sohlich.github.io\/\/img\/blog\/electron\/back.jpg",
+      "url": "https:\/\/sohlich.github.io\/\/img\/blog\/electron2\/back.jpg",
       "height": 800,
       "width": 800
     },
-    "datePublished": "2017-07-29T08:48:41JST",
-    "dateModified": "2017-07-29T08:48:41JST",
+    "datePublished": "2017-08-20T20:33:51JST",
+    "dateModified": "2017-08-20T20:33:51JST",
     "author": {
       "@type": "Person",
       "name": "Radomir Sohlich"
@@ -68,7 +68,7 @@
         "height": 60
       }
     },
-    "description": "Today it is possible to have almost all the applications as a service online. Literally you don\x26rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I\x26rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option."
+    "description": "In the previous post the bootstrap of Angular project on Electron platform was described. In this one, the process of application packaging will be presented. One of the benefits of Electron is that it runs on all major platforms. Each platform has naturally its needs regarding to creating the distribution package. Fortunately, the packaging and all that stuff do not need to be done manually. There are few tools which will help you."
   }
 </script>
  
@@ -118,24 +118,24 @@ ga('send', 'pageview');
 
         <article class="sn">
 
-  <div class="thumb thumb-bdd4b94127cd51929719b4805aa35d2b"></div>
+  <div class="thumb thumb-67d2d8ac23405ccb37f12ecf3222eca9"></div>
 
   <header class="article-header">
-    <h1 class="title">Angular on Electron, part 1</h1>
+    <h1 class="title">Angular on Electron, part 2</h1>
 
     <ul class="facts">
-      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-07-29T08:48:41JST">Jul 29, 2017</time></li>
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-20T20:33:51JST">Aug 20, 2017</time></li>
       <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="https://sohlich.github.io/post/">POST</a></li>
       
     </ul>
 
     <aside class="share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&title=Angular%20on%20Electron%2c%20part%201" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&text=Angular%20on%20Electron%2c%20part%201&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&t=Angular%20on%20Electron%2c%20part%201" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&title=Angular%20on%20Electron%2c%20part%201" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
-  <a href="http://line.me/R/msg/text/?Angular%20on%20Electron%2c%20part%201 https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&title=Angular%20on%20Electron%2c%20part%202" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&text=Angular%20on%20Electron%2c%20part%202&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&t=Angular%20on%20Electron%2c%20part%202" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&title=Angular%20on%20Electron%2c%20part%202" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Angular%20on%20Electron%2c%20part%202 https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
 </aside>
 
   </header>
@@ -144,194 +144,173 @@ ga('send', 'pageview');
 
   <div class="article-body">
 
-<p>Today it is possible to have almost all the applications as a service online. Literally you don&rsquo;t have to install any of it on you computer. Even if this is possible, but for me it is still more comfortable to have a dedicated desktop application. I believe I&rsquo;m not the only one. There are a lot of ways how to create a desktop application. Utilizing the native frameworks like Qt, WxWidgets is always an option. For Java people, there are two useful options: swing and java fx.
-But for me as web developer, though java based, it means to learn a new library or whole framework, all its features and pitfalls&hellip; But what If anybody tells you that you can use your good &ldquo;old&rdquo; javascript and HTML? Me, I’m totally IN.</p>
+<p>In the previous post the bootstrap of Angular project on Electron platform was described. In this one, the process of application packaging will be presented.</p>
 
-<p>So here comes the Electron platform (<a href="https://electron.atom.io/">https://electron.atom.io/</a>) based on Chromium browser. It provides presentation layer and runtime for your application.
-The Electron accompanied by Angular framework is a very solid foundation for desktop application development in most of use cases. By the way lot of well known applications are based on electron: VS Code, Slack, WhatsApp&hellip;</p>
+<p>One of the benefits of Electron is that it runs on all major platforms. Each platform has naturally its needs regarding to creating the distribution package. Fortunately, the packaging and all that stuff do not need to be done manually. There are few tools which will help you. But first things first.</p>
 
-<p>I&rsquo;ll try to show you how to start your own project, or &ldquo;Electronify&rdquo; the existing one.</p>
+<h2 id="get-ready">Get ready</h2>
 
-<h1 id="bootstrap-your-project">Bootstrap your project</h1>
+<p>Before we begin this tutorial there will be one small change to an existing project from part 1. Because the folder &ldquo;dist&rdquo; will be used for another purpose, the Angular default build folder will be changed to &ldquo;build&rdquo;. This is done by modification of &ldquo;angular-cli.json&rdquo; config file. The property &ldquo;outDir&rdquo; of &ldquo;apps&rdquo; section will change the default output directory.</p>
 
-<p>Using an Angular CLI generate a new application and test the first run. After following command you should be able to see the result in the browser on URL <a href="http://localhost:4200">http://localhost:4200</a>.</p>
+<p>${PROJECT_FOLDER}/angular-cli.json:</p>
 
-<pre><code>&gt; ng new electron_app
-&gt; ng serve
+<pre><code>    &quot;apps&quot;: [
+        {
+          ...
+          &quot;root&quot;: &quot;src&quot;,
+          &quot;outDir&quot;: &quot;build&quot;
+          ...}
+          ],
+      ...
 </code></pre>
 
-<p>Add main file for the electron called main.js</p>
+<p>After this change, test the configuration by building the project. The folder &ldquo;build&rdquo; should be created with all the content. If everything is OK, we are good to go.</p>
 
-<p>${PROJECT_FOLDER}/main.js:</p>
-
-<pre><code>    const { app, BrowserWindow } = require('electron');
-    
-    // Executes when the application 
-    // is initialized.
-    app.on('ready', function() {
-        console.log('Starting application!');
-        // Create browser window 
-        // with given parameters
-        mainWindow = new BrowserWindow({ width: 1280, height: 960 });
-        mainWindow.loadURL(&quot;http://localhost:4200&quot;);
-    
-        // It is useful to open dev tools
-        // for debug.
-        mainWindow.webContents.openDevTools();
-        mainWindow.on('closed', function() {
-            mainWindow = null;
-        });
-    });
-    
-    // Defines the behavior on close.
-    app.on('window-all-closed', function() {
-        app.quit();
-    });
+<pre><code>    &gt; ng build
+    &gt; tree build/
+    build/
+        ├── favicon.ico
+        ├── index.html
+        ├── inline.bundle.js
+        ├── inline.bundle.js.map
+        ├── main.bundle.js
+        ├── main.bundle.js.map
+        ├── polyfills.bundle.js
+        ├── polyfills.bundle.js.map
+        ├── styles.bundle.js
+        ├── styles.bundle.js.map
+        ├── vendor.bundle.js
+        └── vendor.bundle.js.map
 </code></pre>
 
-<p>And update the package.json file by few additional properties:
-${PROJECT_FOLDER}/package.json:</p>
+<h2 id="assets-packaging">Assets packaging</h2>
 
-<pre><code>    {
-        &quot;name&quot;: &quot;electron_app&quot;,
-        &quot;version&quot;: &quot;0.0.0&quot;,
-        &quot;main&quot;: &quot;main.js&quot;,
-        &quot;license&quot;: &quot;MIT&quot;,
-        &quot;scripts&quot;: {
-            &quot;ng&quot;: &quot;ng&quot;,
-            &quot;start&quot;: &quot;ng serve&quot;,
-            &quot;build&quot;: &quot;ng build&quot;,
-            &quot;test&quot;: &quot;ng test&quot;,
-            &quot;lint&quot;: &quot;ng lint&quot;,
-            &quot;e2e&quot;: &quot;ng e2e&quot;
-        },
-        &quot;private&quot;: true,
-        &quot;dependencies&quot;: {
-            &quot;@angular/animations&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/common&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/compiler&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/core&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/forms&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/http&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/platform-browser&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/platform-browser-dynamic&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/router&quot;: &quot;^4.0.0&quot;,
-            &quot;core-js&quot;: &quot;^2.4.1&quot;,
-            &quot;rxjs&quot;: &quot;^5.4.1&quot;,
-            &quot;zone.js&quot;: &quot;^0.8.14&quot;
-        },
-        &quot;devDependencies&quot;: {
-            &quot;@angular/cli&quot;: &quot;1.2.4&quot;,
-            &quot;@angular/compiler-cli&quot;: &quot;^4.0.0&quot;,
-            &quot;@angular/language-service&quot;: &quot;^4.0.0&quot;,
-            &quot;@types/jasmine&quot;: &quot;~2.5.53&quot;,
-            &quot;@types/jasminewd2&quot;: &quot;~2.0.2&quot;,
-            &quot;@types/node&quot;: &quot;~6.0.60&quot;,
-            &quot;codelyzer&quot;: &quot;~3.0.1&quot;,
-            &quot;jasmine-core&quot;: &quot;~2.6.2&quot;,
-            &quot;jasmine-spec-reporter&quot;: &quot;~4.1.0&quot;,
-            &quot;karma&quot;: &quot;~1.7.0&quot;,
-            &quot;karma-chrome-launcher&quot;: &quot;~2.1.1&quot;,
-            &quot;karma-cli&quot;: &quot;~1.0.1&quot;,
-            &quot;karma-coverage-istanbul-reporter&quot;: &quot;^1.2.1&quot;,
-            &quot;karma-jasmine&quot;: &quot;~1.1.0&quot;,
-            &quot;karma-jasmine-html-reporter&quot;: &quot;^0.2.2&quot;,
-            &quot;protractor&quot;: &quot;~5.1.2&quot;,
-            &quot;ts-node&quot;: &quot;~3.0.4&quot;,
-            &quot;tslint&quot;: &quot;~5.3.2&quot;,
-            &quot;typescript&quot;: &quot;~2.3.3&quot;
+<p>All the assets of application need to be bundled in the distribution somehow. Naturally there are several ways how to accomplish that. The first option is to bundle the files ( js, css bundles) as they are. Your install folder that will contain the build folder with all the files.  Sometimes it is better to hide the raw files from user. So the next option is to use archive. As this si preferred way, the asar archive were designed.</p>
+
+<p><em>Asar archive</em></p>
+
+<p>The asar archive (<a href="https://github.com/electron/asar">https://github.com/electron/asar</a>) is tar-like format very easy to use. Following example demonstrates the basic usage.</p>
+
+<pre><code>    &gt; npm install -g asar
+    &gt; asar pack app app.asar
+</code></pre>
+
+<p>The benefit of asar archive is that it could be read as simple as a folder in the filesystem. One way how to achieve it is via Node API. (<a href="https://electron.atom.io/docs/tutorial/application-packaging/#using-asar-archives">https://electron.atom.io/docs/tutorial/application-packaging/#using-asar-archives</a>)</p>
+
+<pre><code>    const fs = require('fs')
+    fs.readdirSync('/path/to/example.asar')
+</code></pre>
+
+<p>There is more. The Electron BrowserWindow class provides the ability to access the archive too. So it can load the &ldquo;index.html&rdquo; file in the application the common way via the BrowserWindow#loadURL method. In this case, the &ldquo;__dirname&rdquo; would be the path to the .asar file.</p>
+
+<pre><code>        var path = require('path');
+        var url = require('url');
+        win = new BrowserWindow({ width: 1280, height: 960 });
+        // __dirname is a current working directory
+        win.loadURL(url.format({
+                pathname: path.join(__dirname, 'build', 'index.html'),
+                protocol: 'file:',
+                slashes: true
+        }));
+</code></pre>
+
+<p>Now after the packaging and the ways how to use the asar were described, let&rsquo;s move to an installer. Don&rsquo;t worry you would not need to create the archives and config files manually. The tools for this purpose are there for you.</p>
+
+<h2 id="electron-builder">Electron builder</h2>
+
+<p>For this tutorial, the <a href="https://github.com/electron-userland/electron-builder">electron-builder</a> tool will be used.  The utility simplifies the creation of distribution package for all major platforms, even the cross platform build is possible.</p>
+
+<pre><code>    npm install electron-builder --save-dev
+</code></pre>
+
+<p>The electron-builder tool needs a little bit of configuration, so the final changes in &ldquo;package.json&rdquo; file looks like this (This is a minimal configuration)
+${PROJECT_FOLDER}/package.json</p>
+
+<pre><code>      &quot;author&quot;: {
+        &quot;name&quot;: &quot;Radomir Sohlich&quot;,
+        &quot;email&quot;: &quot;sohlich@example.com&quot;
+      },
+      &quot;description&quot;: &quot;Example application.&quot;,
+      &quot;devDependencies&quot;: {
+         &quot;electron-builder&quot;: &quot;^19.22.0&quot;,
+      },
+      &quot;build&quot;: {
+        &quot;appId&quot;: &quot;com.example.app&quot;,
+        &quot;files&quot;: [
+          &quot;main.js&quot;,
+          &quot;build&quot;
+        ],
+        &quot;mac&quot;: {
+          &quot;category&quot;: &quot;productivity&quot;
         }
-    }
+      }
 </code></pre>
 
-<p>I recommend to install the electron platform globaly with command:</p>
+<p>The build-&gt;files section defines which files/folders will be included in asar archive. The archive works as the application folder. The electron executes the main.js directly from the archive. The build folder contains application build with index.html and bundles. The &ldquo;author&rdquo; and &ldquo;description&rdquo; properties are not mandatory, but it is always better to provide this info. (The electron-builder will produce less warning messages :) )</p>
 
-<pre><code>    &gt; npm install -g electron
-</code></pre>
-
-<p>The first simple manual run could be done by calling following commands (these must be run in separate terminal windows as the “ng serve” is blocking)</p>
-
-<pre><code>    &gt; ng serve
-    &gt; electron .
-</code></pre>
-
-<p>Command “ng serve” will start development server on <a href="http://localhost:4200">http://localhost:4200</a>, you can notice the this url is used in main.js file. The &ldquo;electron .&rdquo; will start the electron app by executing the main.js file.</p>
-
-<p>You can use <a href="https://www.npmjs.com/package/concurrently">concurrently</a> tool to run these two commands concurrently. Also it can be incorporated to package.json file as an npm script.</p>
-
-<pre><code>npm install -g concurrently
-</code></pre>
+<p>The final step is to add a npm command to run the electron-builder build.</p>
 
 <p>${PROJECT_FOLDER}/package.json</p>
 
-<pre><code>&quot;scripts&quot;: {
-        ...
-        &quot;electrondev&quot;: &quot;concurrently -k \&quot;ng serve\&quot; \&quot;electron .\&quot;&quot;
-    },
+<pre><code>    &quot;scripts&quot;: {
+        &quot;dist&quot;: &quot;build --mac&quot;
+      },
 </code></pre>
 
-<h1 id="serving-static-files">Serving static files</h1>
+<p>The &ldquo;dist&rdquo; command will build the application and subsequently build a distribution package. In this case, the MacOS is configured. The platform is defined by the switch. The available values are in the following figure. (stolen from project documentation <a href="https://github.com/electron-userland/electron-builder#cli-usage">https://github.com/electron-userland/electron-builder#cli-usage</a>)</p>
 
-<p>Serving angular application via development server is not very comfortable and permanent solution. Better approach is serving a static files from the build output folder (let&rsquo;s call it distribution folder). The main.js file need to be changed to open the index.html file located in distribution folder of your angular application.</p>
+<pre><code>      --mac, -m, -o, --macos   Build for macOS, accepts target list (see
+                               https://goo.gl/HAnnq8).                       [array]
+      --linux, -l              Build for Linux, accepts target list (see
+                               https://goo.gl/O80IL2)                        [array]
+      --win, -w, --windows     Build for Windows, accepts target list (see
+                               https://goo.gl/dL4i8i)                        [array]
+</code></pre>
 
-<p>${PROJECT_FOLDER}/main.js</p>
+<p>To execute the build, call the command in terminal and the output should look like this.</p>
 
-<pre><code>    const { app, BrowserWindow } = require('electron');
-    path = require('path');
-    url = require('url');
-    app.on('ready', function() {
-        console.log('Starting application!');
-        mainWindow = new BrowserWindow({ width: 1280, height: 960 });
-        
-        // Change loadUrl to load index.html
-        // using url and path package 
-        // to format the file url
-        mainWindow.loadURL(url.format({
-            //__dirname is the current working dir
-            pathname: path.join(__dirname, 'dist', 'index.html'),
-            protocol: 'file:',
-            slashes: true
-        }));
+<pre><code>    &gt; npm run dist
+    &gt; electron_app@0.0.0 distmac /Users/radek/Junk/electron_app
+    &gt; ng build &amp;&amp; build --mac
     
-        // Opens dev tools
-        mainWindow.webContents.openDevTools();
-        mainWindow.on('closed', function() {
-            mainWindow = null;
-        });
-    });
-    app.on('window-all-closed', function() {
-        app.quit();
-    });
+    Hash: ee6c31ccdab8735b740c
+    Time: 10199ms
+    chunk    {0} polyfills.bundle.js, polyfills.bundle.js.map (polyfills) 177 kB {4} [initial] [rendered]
+    chunk    {1} main.bundle.js, main.bundle.js.map (main) 5.27 kB {3} [initial] [rendered]
+    chunk    {2} styles.bundle.js, styles.bundle.js.map (styles) 10.5 kB {4} [initial] [rendered]
+    chunk    {3} vendor.bundle.js, vendor.bundle.js.map (vendor) 1.89 MB [initial] [rendered]
+    chunk    {4} inline.bundle.js, inline.bundle.js.map (inline) 0 bytes [entry] [rendered]
+    electron-builder 19.22.1
+    No native production dependencies
+    Packaging for darwin x64 using electron 1.7.5 to dist/mac
+    Building macOS zip
+    Building DMG
+    Application icon is not set, default Electron icon will be used
 </code></pre>
 
-<p>After you open electron you will receive “Failed to load resource” error.
-There is one step missing to get the change work.
-<img src ="https://d2mxuefqeaa7sj.cloudfront.net/s_F68920300BC018EB3E1E88614B689BAD376E939D730AA4BF30888F46A4DF2F8A_1501387336733_image.png"/></p>
+<p>After the successful command run, the dist folder should be created in the working directory and the installer should be there.</p>
 
-<p>The one small change that need to be done is in your index.html file. We need to define the base for the file as absolute but from the actual working directory like “./”. This is done in <base> element in head tag of index.html . After the modification you can try “electron .” in your ${PROJECT_FOLDER}</p>
-
-<p>${PROJECT_FOLDER}/index.html :</p>
-
-<pre><code>    &lt;!doctype html&gt;
-    &lt;html lang=&quot;en&quot;&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot;&gt;
-        &lt;title&gt;Electron&lt;/title&gt;
-        &lt;!-- Change the href attribute 
-        to reference to cur. working dir --&gt;
-        &lt;base href=&quot;./&quot;&gt;
-        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-        &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;favicon.ico&quot;&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;app-root&gt;&lt;/app-root&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+<pre><code>    dist/
+    --- electron_app-0.0.0-mac.zip
+    --- electron_app-0.0.0.dmg
+    --- mac
+        --- electron_app.app
 </code></pre>
 
-<p>That&rsquo;s it. Desktop application with Angular. The same approach could be used with other JS frameworks or just pure static HTML. I was excited how easy it is.</p>
+<p>The &ldquo;electron_app.app/Resources&rdquo; folder contains the asar archive with &ldquo;app.asar&rdquo; file. That is our bundled application. If you need to debug, what is packed into &ldquo;app.asar&rdquo; file and what is included in the installer. The &ldquo;build &ndash;dir&rdquo; command could be used. It will create only the expanded distribution folder (same as dist/mac).</p>
 
-<p>The repository with example project <a href="https://github.com/sohlich/angular_on_electron">https://github.com/sohlich/angular_on_electron</a></p>
+<p>Note:
+If you encounter the error by executing the &ldquo;build &ndash;dir&rdquo; command.</p>
+
+<pre><code>    Error: Cannot find electron dependency to get electron version
+</code></pre>
+
+<p>The electron dependency need to be add to project.</p>
+
+<pre><code>    npm install electron --save-dev
+</code></pre>
+
+<p>The repository with example project [](<a href="https://github.com/sohlich/angular_on_electron">https://github.com/sohlich/angular_on_electron</a>)</p>
 
 <h3 id="series">Series:</h3>
 
@@ -344,12 +323,12 @@ There is one step missing to get the change work.
   <footer class="article-footer">
 
     <aside class="share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&title=Angular%20on%20Electron%2c%20part%201" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&text=Angular%20on%20Electron%2c%20part%201&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&t=Angular%20on%20Electron%2c%20part%201" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f&title=Angular%20on%20Electron%2c%20part%201" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
-  <a href="http://line.me/R/msg/text/?Angular%20on%20Electron%2c%20part%201 https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&title=Angular%20on%20Electron%2c%20part%202" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&text=Angular%20on%20Electron%2c%20part%202&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&t=Angular%20on%20Electron%2c%20part%202" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f&title=Angular%20on%20Electron%2c%20part%202" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Angular%20on%20Electron%2c%20part%202 https%3a%2f%2fsohlich.github.io%2fpost%2fangular_electron_2%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
 </aside>
 
 
@@ -361,7 +340,7 @@ There is one step missing to get the change work.
             
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://sohlich.github.io/post/" itemprop="url"><span itemprop="title">POST</span></a></li>
             
-            <li class="active">Angular on Electron, part 1</li>
+            <li class="active">Angular on Electron, part 2</li>
           </ol>
         </nav>
       </div>
@@ -394,11 +373,11 @@ There is one step missing to get the change work.
           
           <li><a href="https://sohlich.github.io/tags/angular/">angular</a></li>
           
-          <li><a href="https://sohlich.github.io/tags/javascript/">javascript</a></li>
-          
           <li><a href="https://sohlich.github.io/tags/electron/">electron</a></li>
           
           <li><a href="https://sohlich.github.io/tags/desktop/">desktop</a></li>
+          
+          <li><a href="https://sohlich.github.io/tags/electron-builder/">electron-builder</a></li>
           
         </ul>
       </div>
@@ -416,14 +395,14 @@ There is one step missing to get the change work.
                 <div class="mcol c6">
                     <header>Previous Article</header>
                     <article class="lism">
-  <a href="https://sohlich.github.io/post/jackson/">
-    <div class="thumb thumb-7a16802c95dd1f9cdd5748c1ac2ffa2e"></div>
+  <a href="https://sohlich.github.io/post/angular_electron/">
+    <div class="thumb thumb-bdd4b94127cd51929719b4805aa35d2b"></div>
 
     <div class="inner">
-      <div class="title">Streaming JSON with Jackson</div>
+      <div class="title">Angular on Electron, part 1</div>
 
       <ul class="facts sm">
-        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-02-08T20:27:44JST">Feb 8, 2017</time></li>
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-07-29T08:48:41JST">Jul 29, 2017</time></li>
         <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
         
       </ul>
@@ -434,36 +413,15 @@ There is one step missing to get the change work.
 
                 </div>
                  
-                <div class="mcol c6">
-                    <header>Next Article</header>
-                    <article class="lism">
-  <a href="https://sohlich.github.io/post/angular_electron_2/">
-    <div class="thumb thumb-67d2d8ac23405ccb37f12ecf3222eca9"></div>
-
-    <div class="inner">
-      <div class="title">Angular on Electron, part 2</div>
-
-      <ul class="facts sm">
-        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-20T20:33:51JST">Aug 20, 2017</time></li>
-        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
-        
-      </ul>
-
-    </div>
-  </a>
-</article>
-
-                </div>
-                
             </div>
         </div>
 
         <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'sohlich';
-    var disqus_identifier = 'https:\/\/sohlich.github.io\/post\/angular_electron\/';
-    var disqus_title = 'Angular on Electron, part 1';
-    var disqus_url = 'https:\/\/sohlich.github.io\/post\/angular_electron\/';
+    var disqus_identifier = 'https:\/\/sohlich.github.io\/post\/angular_electron_2\/';
+    var disqus_title = 'Angular on Electron, part 2';
+    var disqus_url = 'https:\/\/sohlich.github.io\/post\/angular_electron_2\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
