@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="theme-color" content="#263238">
+
+<meta name="generator" content="Hugo 0.17-DEV" />
+
+<link rel="apple-touch-icon" href="https://sohlich.github.io/images/logo.png">
+
+
+<link rel="canonical" href="https://sohlich.github.io/post/clever_cloud_pipelines/">
+
+
+    
+    <link href="https://fonts.googleapis.com/css?family=Lobster%7cLato:400,700" rel="stylesheet">
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich</title>
+     <meta name="description" content="There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud.">
+
+<meta property="og:title" content="Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sohlich.github.io/post/clever_cloud_pipelines/">
+<meta property="og:image" content="https://sohlich.github.io//img/blog/clever_cloud/back.jpg">
+<meta property="og:site_name" content="Radomir Sohlich">
+<meta property="og:description" content="There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="Radomir Sohlich">
+<meta name="twitter:url" content="https://sohlich.github.io/post/clever_cloud_pipelines/">
+<meta name="twitter:title" content="Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich">
+<meta name="twitter:description" content="There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud.">
+<meta name="twitter:image" content="https://sohlich.github.io//img/blog/clever_cloud/back.jpg">
+
+ <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"https:\/\/sohlich.github.io\/"
+    },
+    "headline": "Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https:\/\/sohlich.github.io\/\/img\/blog\/clever_cloud\/back.jpg",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2017-08-31T05:08:10JST",
+    "dateModified": "2017-08-31T05:08:10JST",
+    "author": {
+      "@type": "Person",
+      "name": "Radomir Sohlich"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Radomir Sohlich",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https:\/\/sohlich.github.io\/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI\/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud."
+  }
+</script>
+ 
+    <style>
+      html { font-size: 18px; background-color: rgba(236,239,241,.5);}@media (max-width: 768px) { html { font-size: 15px; }}body { color: #333; font-family: 'Roboto Slab','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro',メイリオ,Meiryo,sans-serif; font-feature-settings : "palt"; font-size: inherit; line-height: 1rem; margin: 0; padding: 0;}h1, h2, h3, h4, h5 ,h6 { font-size: 1rem; font-weight: 700; line-height: 1rem; margin: 0;}hr { border: 0; border-top: 1px dashed #cfd8dc; margin: 1rem 0;}p { margin: 0; line-height: 1rem;}a { color: #2196f3; text-decoration: none; transition-duration: .3s;}ul, ol { margin: 0; padding: 0;}table { border-collapse: collapse;}th, td { font-size: .8rem; padding: .5rem;}tr { border-bottom: 1px dashed #ddd;}/* Layouts */main,aside { display: block;}main { padding: 1rem 0 3rem 0; }aside.h { padding: 3rem 0; }main.f,aside.f { background-color: #333; border-top: 2px dashed #fff; border-bottom: 2px dashed #fff;}.l-container { position: relative; max-width: 68rem; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: row;}.l-container.thin { max-width: 44rem;}.h_spacer{ flex: 1;}.social{ font-size: 1.5rem; padding-left: 1rem;}.social a{ color: black;}.location{ font-size: 0.9rem;}.location i{ font-size: 1.5rem; padding-right: 1rem;}.l-header { background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); padding: 1rem 0; /*text-align: center;*/}.l-footer { background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); font-size: .6rem; font-weight: 700; padding: 1rem 0;}@media (max-width: 768px) { .l-sidebar { margin-top: 4rem; }}.mrow { margin: 0 -1rem; overflow: hidden;}.mcol { box-sizing: border-box; float: left; padding: 0 1rem;}.c6 { width: 50%; }.c4 { width: 33.26323833%; }.c8 { width: 66.66666%; }@media (max-width: 768px) { .mcol { width: 100%; float: none; }}.logo a { font-size: 1.4rem; line-height: 1.5rem; font-weight: 700; color: #333;}.articles { margin: -1rem 0; margin-bottom: 1rem;}.articles.sm { margin: -.5rem 0; margin-bottom: 0;}article { border-radius: 4px; overflow: hidden;}article.li { background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); height: 20rem; overflow: hidden; margin: 1rem 0;}article.li > a { display: block; color: #333;}article.li .inner { padding: 1rem;}article.li .thumb { height: 8rem;}article.li .title { color: #333; font-size: 1.2rem; line-height: 1.5rem; margin-bottom: .5rem;}article.li .summary { font-size: .8rem; height: 6rem; overflow: hidden; margin-top: 1rem;}article.lism { background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); margin: .5rem 0;}article.lism::after { content: ''; display: block; clear: both;}article.lism > a { display: block; color: #333;}article.lism .inner { display: table-cell; vertical-align: middle; height: 5rem; padding-left: .5rem;}article.lism .thumb { width: 5rem; height: 5rem; float: left;}article.lism .title { font-weight: 700; line-height: 1.25rem; margin-bottom: .25rem;}article.sn { background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); margin-bottom: 1rem;}article.sn .thumb { height: 20rem;}@media (max-width: 768px) { article.sn .thumb { height: 10rem; }}article.sn > .article-header,article.sn > .article-body,article.sn .article-footer { padding: 2rem;}article.sn > .article-body { padding: 0 2rem;}@media (max-width: 768px) { article.sn > .article-header, article.sn > .article-body, article.sn .article-footer { padding: 1rem; } article.sn > .article-body { padding: 0 1rem; }}article.sn > .article-header .title { font-size: 1.8rem; line-height: 2rem; margin-bottom: .5rem;}@media (max-width: 768px) { article.sn > .article-header .title { font-size: 1.4rem; line-height: 1.5rem; }}article.sn > .article-header .facts { margin-bottom: 1rem;}article.sn > .article-body { margin-bottom: 1.5rem;}article.sn > .article-body h2 { border-bottom: .25rem solid #333; font-size: 1.2rem; line-height: 1.5rem; margin: 1.5rem 0; padding: .5rem 0;}article.sn > .article-body h3 { border-left: .5rem solid #333; line-height: 1.5rem; margin: 1.5rem 0; padding: .125rem .5rem;}article.sn > .article-body ul,article.sn > .article-body ol { margin: 1.5rem 0; padding-left: 1.5rem;}article.sn > .article-body li { padding-bottom: .5rem; line-height: 1.5rem;}article.sn > .article-body li:last-child { padding-bottom: 0;}article.sn > .article-body p { margin: 1rem 0; line-height: 1.5rem;}article.sn > .article-body strong,article.sn > .article-body em { font-style: normal; font-weight: 700;}article.sn > .article-body strong { box-shadow: 0 -.5rem 0 0 #ffc107 inset;}article.sn > .article-body em { color: #8bc34a;}article.sn > .article-body code,article.sn > .article-body pre { font-family: Menlo, Consolas, monospace; font-size: .7rem;}article.sn > .article-body pre { background-color: #333; color: #fff; line-height: 1rem; margin: 1.5rem -2rem; overflow: auto;}@media (max-width: 768px) { article.sn > .article-body pre { margin: 1.5rem -1rem; }}article.sn > .article-body pre > code { display: block; padding: 1rem 2rem;}@media (max-width: 768px) { article.sn > .article-body pre > code { padding: 1rem; }}article.sn > .article-body p code { background-color: #eceff1; color: #333; border-radius: 4px; margin: 0 .25rem; padding: .375rem; white-space: nowrap;}article.sn > .article-body blockquote { position: relative; border-left: .25rem solid #333; font-size: .8rem; padding: .125rem 1rem; margin: 1.5rem 0;}@media (max-width: 768px) { article.sn > .article-body blockquote { font-size: 1rem; }}article.sn > .article-body blockquote p { margin: .5rem 0; line-height: 1rem;}article.sn > .article-body figure { margin: 1.5rem 0;}article.sn > .article-body figure img,article.sn > .article-body figure amp-img { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); max-width: 100%;}article.sn > .article-body figcaption { color: #cfd8dc; font-size: .8rem; font-weight: 700; margin-top: .5rem;}.facts li { display: inline; font-size: .8rem; margin-right: 1rem;}.facts i { color: #cfd8dc; margin-right: .5em;}.facts.sm li { font-size: .7rem;}.sections.sidebar { margin: -1rem 0;}.sections.footer { margin: -1rem 0;}section.sidebar { margin: 2rem 0;}section.sidebar > header { font-size: .8rem; font-weight: 700; letter-spacing: 4px; text-align: center; margin: 1.5rem 0;}section.footer { margin: 1rem 0;}section.footer > header { font-size: .8rem; margin: .5rem 0;}section.footer > header::before { content: "- ";}section.footer > header a { font-weight: 700; color: #333; text-decoration: underline;}.terms { margin: -.25rem;}.terms li { display: inline-block;}.terms a { display: block; float: left; background-color: #333; border-radius: 4px; color: #fff; font-size: .7rem; margin: .25rem; padding: 0 .75rem; line-height: 1.75rem;}.paging { text-align: center; padding: 1rem 0;}.paging a { display: inline-block; background-color: #fff; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); border-radius: 4px; color: #333; padding: 0 1rem; line-height: 3rem;}.page-title { text-align: center; margin: 1rem 0;}.page-title::after { content: ''; display: block; border-bottom: .25rem solid #333; width: 3rem; margin: 1.5rem auto;}.page-title > .title { font-size: 1.2rem; line-height: 1.5rem;}/* Parts:breadcrumb */.crumb ol { text-overflow: ellipsis; color: #cfd8dc; white-space: nowrap; overflow: hidden;}.crumb li { display: inline; font-size: .8rem;}.crumb li::after { content: '›'; margin: 0 .25rem 0 .5rem;}.crumb li:last-child::after { content: '';}.crumb a { color: #cfd8dc;}.crumb i { margin-right: .5em;}.share { padding: 0;}.share a { display: inline-block; box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05); min-width: 1rem; height: 2rem; border-radius: 4px; color: #333; font-size: .8rem; font-weight: 700; line-height: 2rem; text-align: center; padding: 0 .5rem;}.adj article.lism { margin-bottom: 1rem;}.adj header { font-weight: 700; font-size: .8rem;}.toc { padding: 0 2rem;}@media (max-width: 768px) { .toc { padding: 0 1rem; }}.toc { margin: 1rem 0;}.toc nav>ul { background-color: #eceff1; border-radius: 4px; display: inline-block; font-size: .8rem; padding: .5rem 1rem; word-break: break-all; list-style: none;}.toc ul { padding: 0;}.toc ul ul { padding-left: 1rem;}.toc ul ul ul { padding-left: 1rem;}.toc li { color: #90a4ae;}.toc ul ul>li { font-weight: 700; margin: .5rem 0; list-style-type: decimal;}.toc ul ul ul>li { list-style-type: disc; font-weight: 500;}.thumb { background-image: url(https://sohlich.github.io/images/default.jpg); background-size: cover;}.thumb-f7632343af44d7ed51451a803d78d76b { background-image: url(https://sohlich.github.io//img/blog/clever_cloud/back.jpg);}.thumb-67d2d8ac23405ccb37f12ecf3222eca9 { background-image: url(https://sohlich.github.io//img/blog/electron2/back.jpg);}.thumb-bdd4b94127cd51929719b4805aa35d2b { background-image: url(https://sohlich.github.io//img/blog/electron/back.jpg);}.thumb-7a16802c95dd1f9cdd5748c1ac2ffa2e { background-image: url(https://sohlich.github.io//img/blog/jackson/back.jpg);}.thumb-74155849d60bdf4df45d491945bf6268 { background-image: url(https://sohlich.github.io//img/blog/natsproxy/back.jpg);}
+       body { font-family: Lato,YuGothic,'Hiragino Kaku Gothic Pro',Meiryo,sans-serif; } 
+       .h-logo { font-family: Lobster, cursive; } 
+    </style>
+  </head>
+
+  <body>
+    
+    
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-102800896-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+
+    <header class="l-header">
+      <div class="l-container">
+          <div class="logo">
+            <a href="https://sohlich.github.io/">Radomir Sohlich</a>
+          </div>
+          <div class="h_spacer"></div>
+          <div class="location">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>Zlin, Czech Republic
+          </div>
+          <div class="social">
+            <a href="https://github.com/sohlich"><i class="fa fa-github" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/radeksohlich"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="l-container">
+        
+<div class="mrow">
+    <div class="mcol c8">
+
+        <article class="sn">
+
+  <div class="thumb thumb-f7632343af44d7ed51451a803d78d76b"></div>
+
+  <header class="article-header">
+    <h1 class="title">Deploy on Clever Cloud using Bitbucket Pipelines</h1>
+
+    <ul class="facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-31T05:08:10JST">Aug 31, 2017</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="https://sohlich.github.io/post/">POST</a></li>
+      
+    </ul>
+
+    <aside class="share">
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+</aside>
+
+  </header>
+
+  
+
+  <div class="article-body">
+
+<p>There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the <a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a> feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers.
+In this post, I’d like to walk through the setup of Pipelines to deploy the build on <a href="https://www.clever-cloud.com">Clever Cloud</a>. The Clever Cloud is PaaS provider, which I have been using for about 2 years. They come up with a lot of platforms, but the best one and my favorite is the Docker. With this one, it is possible to deploy any Docker image.
+For this post, I’ve chosen the Go application to be deployed on top of the Docker platform, but the same approach could be used with other languages.</p>
+
+<h2 id="repository-content">Repository content</h2>
+
+<p>First, we need to add a Dockerfile to application folder (for the simplicity). The most simple Dockerfile could look like following one.</p>
+
+<p>${PROJECT_FOLDER}/Dockerfile</p>
+
+<pre><code>    FROM golang:latest
+    #copy the binary of app
+    COPY linux_bin linux_bin
+    EXPOSE 8080
+    #execute the binary
+    ENTRYPOINT [&quot;./linux_bin&quot;]
+</code></pre>
+
+<p>The important step in Dockerfile is the exposing of port 8080. The Clever Cloud requires this port as a default HTTP port. If the application does not respond on this port, the monitor tool evaluates the application as non-working and the deployment fails.</p>
+
+<p>The binary itself will be built during the Pipelines run. We can test the Dockerfile by building the binary. As we are running the binary within the container, it must be compiled for Linux and amd64 architecture.</p>
+
+<pre><code>    &gt; GOOS=linux GOARCH=AMD64 go build -o linux_bin -v
+    &gt; docker build --rm -t clever_cloud_deploy .
+    Sending build context to Docker daemon  42.55MB
+    Step 1/4 : FROM golang:alpine
+    Step 2/4 : COPY linux_bin linux_bin
+    Step 3/4 : EXPOSE 8080
+    Step 4/4 : CMD ./linux_bin
+    Successfully built 692db10e1840
+    Successfully tagged clever_cloud_deploy:latest
+    &gt; docker run --rm -it clever_cloud_deploy:latest
+</code></pre>
+
+<p>So the Dockerfile is OK. Now the Pipelines config file must be created. The easiest way how to do that is to copy the config from bitbucket docs and modify it to fit your needs. (<a href="https://confluence.atlassian.com/bitbucket/language-guides-856821477.html">Bitbucket Docs</a>)</p>
+
+<p>${PROJECT_FOLDER}/bitbucket-pipelines.yml</p>
+
+<pre><code>    image: golang:latest
+    pipelines:
+      default:
+        - step:
+            caches:
+              - gocache        # custom golang cache
+            script: # Modify the commands below to build your repository.
+              - PACKAGE_PATH=&quot;${GOPATH}/src/bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}&quot;
+              - mkdir -pv &quot;${PACKAGE_PATH}&quot;
+              - tar -cO --exclude-vcs --exclude=bitbucket-pipelines.yml . | tar -xv -C &quot;${PACKAGE_PATH}&quot;
+              - cd &quot;${PACKAGE_PATH}&quot;
+              - go get -v
+              - go build -o linux_bin -v
+              - go test -v
+
+</code></pre>
+
+<h2 id="deployment-to-clever-cloud">Deployment to Clever Cloud</h2>
+
+<p>The deployment of an application to Clever Cloud is done via push to the git repository. The push to the master branch invokes the deployment on the provider side. The Docker platform was chosen so the Dockerfile must be the essential part of pushed changes.  Naturally, all the files used in Dockerfile are needed. The deployment on the provider side, in fact, consists of the Docker file build and start of the container based on the created docker image.</p>
+
+<h3 id="ssh-keys">SSH Keys</h3>
+
+<p>To be able to push into the Clever Cloud repository, the SSH public key must be provided. The existing key could be added or you can generate a new one in Bitbucket repository (Settings → Pipelines → SSHKeys) and configure it to be allowed to use in Clever Cloud (see Clever Cloud settings).</p>
+
+<h3 id="clever-cloud-repository-and-config">Clever Cloud repository and config</h3>
+
+<p>Each application in Clever Cloud has so called “deployment URL” defined in information tab in the Clever Cloud console (administration page). The URL is similar to one below.</p>
+
+<pre><code>    git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_b5a2def7-ed24-4fde-bcf2-5d0525c2d00b.git
+</code></pre>
+
+<p>This URL would be used in Pipelines config file as a remote git repository to push the built files. The deploy than will consist of these steps:</p>
+
+<ul>
+<li>initialize Git repository</li>
+<li>commit all files needed for Dockerfile build</li>
+<li>push to remote master branch</li>
+</ul>
+
+<p>Before we do that we need to add the push-par-clevercloud-customers.services.clever-cloud.com host to “known hosts”. This is done via Settings → SSH → Known Hosts section.
+After this is done the steps described above can be added to Pipelines config file.</p>
+
+<p>${PROJECT_FOLDER}/bitbucket-pipelines.yml (partial)</p>
+
+<pre><code>              - git init
+              - git config user.name &quot;Pipeline&quot; &amp;&amp; git config user.email &quot;pipeline@example.org&quot;
+              # Use -f switch to override .gitignore file
+              - git add -f linux_bin 
+              - git commit -m &quot;init&quot;
+</code></pre>
+
+<p>Initialisation of the repository, configuration of user and email is needed. Without this git refuses to work properly.</p>
+
+<p>Finally, push all the changes to Clever Cloud repo using the —force switch.</p>
+
+<pre><code>    git push git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_b5a2def7-ed24-4fde-bcf2-5d0525c2d00b.git master --force
+</code></pre>
+
+<p>The complete Pipelines configuration file could look like this.</p>
+
+<p>${PROJECT_FOLDER}/bitbucket-pipelines.yml</p>
+
+<pre><code>    image: golang:latest
+    pipelines:
+      default:
+        - step:
+            caches:
+              - gocache        # custom golang cache
+              - xchache        # custom golang cache
+              - pkgincache        # custom golang cache
+            script: # Modify the commands below to build your repository.
+              - PACKAGE_PATH=&quot;${GOPATH}/src/bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}&quot;
+              - mkdir -pv &quot;${PACKAGE_PATH}&quot;
+              - tar -cO --exclude-vcs --exclude=bitbucket-pipelines.yml . | tar -xv -C &quot;${PACKAGE_PATH}&quot;
+              - cd &quot;${PACKAGE_PATH}&quot;
+              - go get -v
+              - go build -o linux_bin -v
+              - go test -v
+              - git init
+              # Deployment to clever cloud
+              - git config user.name &quot;Pipeline&quot; &amp;&amp; git config user.email &quot;pipeline@example.org&quot;
+              - git add -f linux_bin
+              - git commit -m &quot;init&quot;
+              - git push git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_b5a2def7-ed24-4fde-bcf2-5d0525c2d00b.git master --force
+</code></pre>
+
+<p>That’s it. After your commit arrive to Bitbucket repository the Pipelines run is started, subsequently the build deployed on Clever Cloud. Enjoy!</p>
+
+<p>Link to the sample repository:
+<a href="https://bitbucket.org/rsohlich/clever_cloud_deploy">https://bitbucket.org/rsohlich/clever_cloud_deploy</a></p>
+</div>
+
+  <footer class="article-footer">
+
+    <aside class="share">
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+</aside>
+
+
+    <section class="footer">
+      <div>
+        <nav class="crumb">
+          <ol>
+            <li><a href="https://sohlich.github.io/"><i class="fa fa-home" aria-hidden="true"></i>TOP</a></li>
+            
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://sohlich.github.io/post/" itemprop="url"><span itemprop="title">POST</span></a></li>
+            
+            <li class="active">Deploy on Clever Cloud using Bitbucket Pipelines</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    
+    
+    
+    <section class="footer">
+      <header>
+        <a href="https://sohlich.github.io/categories/">CATEGORIES</a>
+      </header>
+      <div>
+        <ul class="terms">
+          
+          <li><a href="https://sohlich.github.io/categories/cloud/">cloud</a></li>
+          
+          <li><a href="https://sohlich.github.io/categories/golang/">golang</a></li>
+          
+        </ul>
+      </div>
+    </section>
+    
+    
+    
+    <section class="footer">
+      <header>
+        <a href="https://sohlich.github.io/tags/">TAGS</a>
+      </header>
+      <div>
+        <ul class="terms">
+          
+          <li><a href="https://sohlich.github.io/tags/clever-cloud/">Clever Cloud</a></li>
+          
+          <li><a href="https://sohlich.github.io/tags/bitbucket/">Bitbucket</a></li>
+          
+          <li><a href="https://sohlich.github.io/tags/golang/">golang</a></li>
+          
+          <li><a href="https://sohlich.github.io/tags/docker/">docker</a></li>
+          
+          <li><a href="https://sohlich.github.io/tags/ci/cd/">CI/CD</a></li>
+          
+        </ul>
+      </div>
+    </section>
+    
+    
+  </footer>
+
+</article>
+
+
+        <div class="adj">
+            <div class="mrow">
+                
+                <div class="mcol c6">
+                    <header>Previous Article</header>
+                    <article class="lism">
+  <a href="https://sohlich.github.io/post/angular_electron_2/">
+    <div class="thumb thumb-67d2d8ac23405ccb37f12ecf3222eca9"></div>
+
+    <div class="inner">
+      <div class="title">Angular on Electron, part 2</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-20T20:33:51JST">Aug 20, 2017</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+
+                </div>
+                 
+            </div>
+        </div>
+
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'sohlich';
+    var disqus_identifier = 'https:\/\/sohlich.github.io\/post\/clever_cloud_pipelines\/';
+    var disqus_title = 'Deploy on Clever Cloud using Bitbucket Pipelines';
+    var disqus_url = 'https:\/\/sohlich.github.io\/post\/clever_cloud_pipelines\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div class="mcol c4">
+        <aside class="l-sidebar">
+
+    <div class="sections sidebar">
+        <section class="sidebar">
+
+        </section>
+        <section class="sidebar">
+            <header>LATESTS</header>
+            <div>
+                <div class="articles sm">
+                     <article class="lism">
+  <a href="https://sohlich.github.io/post/clever_cloud_pipelines/">
+    <div class="thumb thumb-f7632343af44d7ed51451a803d78d76b"></div>
+
+    <div class="inner">
+      <div class="title">Deploy on Clever Cloud using Bitbucket Pipelines</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-31T05:08:10JST">Aug 31, 2017</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+  <article class="lism">
+  <a href="https://sohlich.github.io/post/angular_electron_2/">
+    <div class="thumb thumb-67d2d8ac23405ccb37f12ecf3222eca9"></div>
+
+    <div class="inner">
+      <div class="title">Angular on Electron, part 2</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-20T20:33:51JST">Aug 20, 2017</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+  <article class="lism">
+  <a href="https://sohlich.github.io/post/angular_electron/">
+    <div class="thumb thumb-bdd4b94127cd51929719b4805aa35d2b"></div>
+
+    <div class="inner">
+      <div class="title">Angular on Electron, part 1</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-07-29T08:48:41JST">Jul 29, 2017</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+  <article class="lism">
+  <a href="https://sohlich.github.io/post/jackson/">
+    <div class="thumb thumb-7a16802c95dd1f9cdd5748c1ac2ffa2e"></div>
+
+    <div class="inner">
+      <div class="title">Streaming JSON with Jackson</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-02-08T20:27:44JST">Feb 8, 2017</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+  <article class="lism">
+  <a href="https://sohlich.github.io/post/natsproxy/">
+    <div class="thumb thumb-74155849d60bdf4df45d491945bf6268"></div>
+
+    <div class="inner">
+      <div class="title">Nats Proxy Framework</div>
+
+      <ul class="facts sm">
+        <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2016-08-28T08:48:41JST">Aug 28, 2016</time></li>
+        <li><i class="fa fa-bookmark" aria-hidden="true"></i>POST</li>
+        
+      </ul>
+
+    </div>
+  </a>
+</article>
+ 
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="sidebar">
+            <header>CATEGORIES</header>
+            <div>
+                <ul class="terms">
+                    
+                    <li><a href="https://sohlich.github.io/categories/angular">angular</a></li>
+                    <li><a href="https://sohlich.github.io/categories/golang">golang</a></li>
+                    <li><a href="https://sohlich.github.io/categories/cloud">cloud</a></li>
+                    <li><a href="https://sohlich.github.io/categories/java">java</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="sidebar">
+            <header>TAGS</header>
+            <div>
+                <ul class="terms">
+                    
+                    <li><a href="https://sohlich.github.io/tags/angular">angular</a></li>
+                    <li><a href="https://sohlich.github.io/tags/desktop">desktop</a></li>
+                    <li><a href="https://sohlich.github.io/tags/electron">electron</a></li>
+                    <li><a href="https://sohlich.github.io/tags/architecture">architecture</a></li>
+                    <li><a href="https://sohlich.github.io/tags/bitbucket">bitbucket</a></li>
+                    <li><a href="https://sohlich.github.io/tags/ci/cd">ci/cd</a></li>
+                    <li><a href="https://sohlich.github.io/tags/clever-cloud">clever-cloud</a></li>
+                    <li><a href="https://sohlich.github.io/tags/docker">docker</a></li>
+                    <li><a href="https://sohlich.github.io/tags/electron-builder">electron-builder</a></li>
+                    <li><a href="https://sohlich.github.io/tags/golang">golang</a></li>
+                </ul>
+            </div>
+        </section>
+        
+    </div>
+
+</aside>
+    </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="l-container">
+        <aside>
+          <p>© 2017 Radomir Sohlich</p>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_robust">Robust</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
