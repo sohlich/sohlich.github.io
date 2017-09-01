@@ -19,10 +19,10 @@
     
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
-    <title>Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich</title>
+    <title>Deploy on Clever Cloud with Bitbucket Pipelines - Radomir Sohlich</title>
      <meta name="description" content="There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud.">
 
-<meta property="og:title" content="Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich">
+<meta property="og:title" content="Deploy on Clever Cloud with Bitbucket Pipelines - Radomir Sohlich">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://sohlich.github.io/post/clever_cloud_pipelines/">
 <meta property="og:image" content="https://sohlich.github.io//img/blog/clever_cloud/back.jpg">
@@ -33,7 +33,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="Radomir Sohlich">
 <meta name="twitter:url" content="https://sohlich.github.io/post/clever_cloud_pipelines/">
-<meta name="twitter:title" content="Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich">
+<meta name="twitter:title" content="Deploy on Clever Cloud with Bitbucket Pipelines - Radomir Sohlich">
 <meta name="twitter:description" content="There are a lot of CI tools that are available on the market. These are usualy free for open-source project. Recently I’ve come across the Bitbucket Pipelines feature that is free also for private ones, with limitation naturally. It is the CI/CD tool bounded to Bitbucket repository, that is based on containers. In this post, I’d like to walk through the setup of Pipelines to deploy the build on Clever Cloud.">
 <meta name="twitter:image" content="https://sohlich.github.io//img/blog/clever_cloud/back.jpg">
 
@@ -45,7 +45,7 @@
       "@type": "WebPage",
       "@id":"https:\/\/sohlich.github.io\/"
     },
-    "headline": "Deploy on Clever Cloud using Bitbucket Pipelines - Radomir Sohlich",
+    "headline": "Deploy on Clever Cloud with Bitbucket Pipelines - Radomir Sohlich",
     "image": {
       "@type": "ImageObject",
       "url": "https:\/\/sohlich.github.io\/\/img\/blog\/clever_cloud\/back.jpg",
@@ -121,7 +121,7 @@ ga('send', 'pageview');
   <div class="thumb thumb-f7632343af44d7ed51451a803d78d76b"></div>
 
   <header class="article-header">
-    <h1 class="title">Deploy on Clever Cloud using Bitbucket Pipelines</h1>
+    <h1 class="title">Deploy on Clever Cloud with Bitbucket Pipelines</h1>
 
     <ul class="facts">
       <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-31T05:08:10JST">Aug 31, 2017</time></li>
@@ -130,12 +130,12 @@ ga('send', 'pageview');
     </ul>
 
     <aside class="share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
   <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
-  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
 </aside>
 
   </header>
@@ -278,12 +278,12 @@ After this is done the steps described above can be added to Pipelines config fi
   <footer class="article-footer">
 
     <aside class="share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow">B!</a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&text=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&t=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
   <a href="https://plus.google.com/share?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
-  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20using%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
+  <a href="http://getpocket.com/edit?url=https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f&title=Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines" title="Pocketに保存" class="pk" target="_blank" rel="nofollow"><i class="fa fa-get-pocket" aria-hidden="true"></i></a>
+  <a href="http://line.me/R/msg/text/?Deploy%20on%20Clever%20Cloud%20with%20Bitbucket%20Pipelines https%3a%2f%2fsohlich.github.io%2fpost%2fclever_cloud_pipelines%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow">LINE</a>
 </aside>
 
 
@@ -295,7 +295,7 @@ After this is done the steps described above can be added to Pipelines config fi
             
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://sohlich.github.io/post/" itemprop="url"><span itemprop="title">POST</span></a></li>
             
-            <li class="active">Deploy on Clever Cloud using Bitbucket Pipelines</li>
+            <li class="active">Deploy on Clever Cloud with Bitbucket Pipelines</li>
           </ol>
         </nav>
       </div>
@@ -379,7 +379,7 @@ After this is done the steps described above can be added to Pipelines config fi
 <script type="text/javascript">
     var disqus_shortname = 'sohlich';
     var disqus_identifier = 'https:\/\/sohlich.github.io\/post\/clever_cloud_pipelines\/';
-    var disqus_title = 'Deploy on Clever Cloud using Bitbucket Pipelines';
+    var disqus_title = 'Deploy on Clever Cloud with Bitbucket Pipelines';
     var disqus_url = 'https:\/\/sohlich.github.io\/post\/clever_cloud_pipelines\/';
 
     (function() {
@@ -407,7 +407,7 @@ After this is done the steps described above can be added to Pipelines config fi
     <div class="thumb thumb-f7632343af44d7ed51451a803d78d76b"></div>
 
     <div class="inner">
-      <div class="title">Deploy on Clever Cloud using Bitbucket Pipelines</div>
+      <div class="title">Deploy on Clever Cloud with Bitbucket Pipelines</div>
 
       <ul class="facts sm">
         <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2017-08-31T05:08:10JST">Aug 31, 2017</time></li>

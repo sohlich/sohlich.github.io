@@ -10,7 +10,7 @@
     <atom:link href="https://sohlich.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Deploy on Clever Cloud using Bitbucket Pipelines</title>
+      <title>Deploy on Clever Cloud with Bitbucket Pipelines</title>
       <link>https://sohlich.github.io/post/clever_cloud_pipelines/</link>
       <pubDate>Thu, 31 Aug 2017 05:08:10 +0200</pubDate>
       
