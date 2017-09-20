@@ -6,8 +6,128 @@
     <description>Recent content in Post-rsses on Radomir Sohlich</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>© 2017 Radomir Sohlich</copyright>
-    <lastBuildDate>Thu, 31 Aug 2017 05:08:10 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 18 Sep 2017 18:32:54 +0200</lastBuildDate>
     <atom:link href="https://sohlich.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Golang: Don’t afraid of makefiles</title>
+      <link>https://sohlich.github.io/post/go_makefile/</link>
+      <pubDate>Mon, 18 Sep 2017 18:32:54 +0200</pubDate>
+      
+      <guid>https://sohlich.github.io/post/go_makefile/</guid>
+      <description>
+
+&lt;p&gt;I&amp;rsquo;m using Golang for a while. During the development, I was used to repeatedly execute &amp;ldquo;go build&amp;rdquo;,&amp;ldquo;go test&amp;rdquo; manually. This was a bad habit on which I resign. It is not so painful if you use simple command without any args. But in case of more complex tasks, naturally, it is going to be a pain. There are few options you can consider as a way out. You can use a bash script to do the work for you. Or better, at least for me, you can write a makefile. The make tool is there for this reason and in the makefile you can keep all your common tasks together. I&amp;rsquo;m not &amp;ldquo;make tool guru&amp;rdquo; to be able to educate how to write the proper one, but in this post, I put together the makefile which works for most of my projects. Let&amp;rsquo;s go through it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    # Go parameters
+    GOCMD=go
+    GOBUILD=$(GOCMD) build
+    GOCLEAN=$(GOCMD) clean
+    GOTEST=$(GOCMD) test
+    GOGET=$(GOCMD) get
+    BINARY_NAME=mybinary
+    BINARY_UNIX=$(BINARY_NAME)_unix
+    
+    all: test build
+    build: 
+            $(GOBUILD) -o $(BINARY_NAME) -v
+    test: 
+            $(GOTEST) -v ./...
+    clean: 
+            $(GOCLEAN)
+            rm -f $(BINARY_NAME)
+            rm -f $(BINARY_UNIX)
+    run:
+            $(GOBUILD) -o $(BINARY_NAME) -v ./...
+            ./$(BINARY_NAME)
+    deps:
+            $(GOGET) github.com/markbates/goth
+            $(GOGET) github.com/markbates/pop
+    
+    
+    # Cross compilation
+    build-linux:
+            CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
+    docker-build:
+            docker run --rm -it -v &amp;quot;$(GOPATH)&amp;quot;:/go -w /go/src/bitbucket.org/rsohlich/makepost golang:latest go build -o &amp;quot;$(BINARY_UNIX)&amp;quot; -v
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s say I like to keep the idea of the DRY rule. So it is handy to declare commonly used commands and variables at the top of the file. And refer to them further in the file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Basic go commands
+GOCMD=go
+GOBUILD=$(GOCMD) build
+GOCLEAN=$(GOCMD) clean
+GOTEST=$(GOCMD) test
+GOGET=$(GOCMD) get
+
+# Binary names
+BINARY_NAME=mybinary
+BINARY_UNIX=$(BINARY_NAME)_unix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The makefile targets are defined bellow labels like “&lt;name&gt;:”. These are executed by make tool if the parameter for make is given. If no parameter is provided to make tool, the first task is executed. In this case the “all” task is executed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; make run // call specific task
+&amp;gt; make // make tool calls &amp;quot;all&amp;quot; task
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;basic-commands&#34;&gt;Basic commands&lt;/h2&gt;
+
+&lt;p&gt;One of the essential parts of the makefile is the build step. Using the variable $(GOBUILD) the “go build” command is executed. The binary name is defined by “-o $(BINARY_NAME)” and I found useful to switch to the verbose mode with “-v”. With verbose mode, you can see the currently built packages.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build:
+  $(GOBUILD) -o $(BINARY_NAME) -v // expands to: &amp;quot;go build -o mybinary -v&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just because a lot of us are just lazy, the “run” target is here. The target builds the binary and executes the application consequently.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;run:
+        $(GOBUILD) -o $(BINARY_NAME) -v ./...
+        ./$(BINARY_NAME)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Naturally, the test command should be the part of the project makefile. I personally always choose the verbose mode to be able to debug and watch the test run better.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;test:
+  $(GOTEST) -v ./...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the project uses CI/CD or just for consistency, it is good to keep the list of dependencies used in packages. This is done by the “deps” task, which should get all the necessary dependencies by “go get” command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;deps:
+        $(GOGET) github.com/markbates/goth
+        $(GOGET) github.com/markbates/pop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To wrap up this section of useful commands, the clean command is accommodated into makefile. The “rm -f” command is added to remove binary with the custom name in $(BINARY_XXX) variable. Typically another clean-up command could be part of this make section.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;clean: 
+        $(GOCLEAN)
+        rm -f $(BINARY_NAME)
+        rm -f $(BINARY_UNIX)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;crosscompilation-commands&#34;&gt;Crosscompilation commands&lt;/h2&gt;
+
+&lt;p&gt;If the project is intended to run on another platform than the one where it is developed, it is useful to include cross compilation commands to make file. I usually run the binaries on
+Linux platform in the container, so the makefile contains the Linux build.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build-linux:
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your code use C binding you could get stuck a little bit. The issue with CGO is that you need a gcc compatible for given platform. So if the development is done on OSX/Windows you need to build gcc to be able to compile for Linux. At least for me, the configuration of gcc to cross compile the C code is not so straightforward on OSX. If the CGO is needed, the docker image is the best way how to create Linux build. The only requirement: Docker has to be installed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker-build:
+        docker run --rm -it -v &amp;quot;$(GOPATH)&amp;quot;:/go -w /go/src/bitbucket.org/rsohlich/makepost golang:latest go build -o &amp;quot;$(BINARY_UNIX)&amp;quot; -v
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;This way you can make your go development process more effective and fluent. The makefile used in this post is available &lt;a href=&#34;https://gist.github.com/sohlich/8432e7c1bd56bc395b101d1ba444e982&#34;&gt;here&lt;/a&gt;. Don’t hesitate to comment or ask questions, I’ll be happy to answer or talk about this. Enjoy!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Deploy on Clever Cloud with Bitbucket Pipelines</title>
